@@ -10,15 +10,15 @@ An autonomous agent that generates custom PDF bank statement parsers using an LL
 flowchart TD
     A[CLI: agent.py] -->|parse args, load API key| B[BankParserAgent]
     B --> C[Analyze Documents]
-    C -->|pdfplumber / PyPDF2| C1[Extract PDF Text <br/> Tables]
+    C -->|pdfplumber / PyPDF2| C1[Extract PDF Text and Tables]
     C -->|pandas| C2[Load CSV Ground Truth]
     C1 --> D
     C2 --> D
-    D[Generate Parser Code <br/>(Gemini)] --> E[Write Parser File <br/> custom_parsers/{bank}_parser.py]
+    D[Generate Parser Code - Gemini] --> E[Write Parser File custom_parsers/[bank]_parser.py]
     E --> F[Run Parser Test]
     F -->|compare with CSV| G{Pass?}
-    G -- Yes --> H[Finalize <br/>(Add header, report success)]
-    G -- No --> I[Fix Parser Code <br/>(LLM with error context)]
+    G -- Yes --> H[Finalize - Add header and report success]
+    G -- No --> I[Fix Parser Code - LLM with error context]
     I --> E
 ```
 
